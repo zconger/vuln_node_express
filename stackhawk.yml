@@ -3,5 +3,5 @@ app:
   env: Development
   host: http://localhost:3000
 
-hawk:
-  failureThreshold: HIGH
+# hawk:
+#   failureThreshold: HIGH
