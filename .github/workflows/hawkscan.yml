@@ -30,7 +30,7 @@ jobs:
         run: env
       - name: Run HawkScan
         uses: stackhawk/hawkscan-action@v2.0.0
-        continue-on-error: true
+        continue-on-error: false
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
           version: 2.11.12
