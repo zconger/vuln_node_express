@@ -33,3 +33,4 @@ jobs:
         continue-on-error: true
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
+          version: 2.11.12
