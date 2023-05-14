@@ -36,3 +36,5 @@ jobs:
         uses: stackhawk/hawkscan-action@v2.0.2
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
+          codeScanningAlerts: true
+          githubToken: ${{ github.token }}
