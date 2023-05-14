@@ -1,14 +1,17 @@
-# .github/workflows/build-and-test.yml
 name: HawkScan
+
 on:
   push: 
     branches:
       - main
   pull_request:
+    branches:
+      - main
+
 jobs:
   build-and-test:
     name: Build and Scan
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
       BRANCH_NAME: ${{ github.head_ref }}
@@ -24,13 +27,11 @@ jobs:
         run: npm install
       - name: Run unit tests
         run: npm test
-      - name: Daemonize our Node API service
+      - name: Run Vuln Node Express
         run: npm run start &
-      - name: Env Dump
-        run: env
       - name: Run HawkScan
         env:
-          HAWK_ENV: PR
-        uses: stackhawk/hawkscan-action@v2.0.0
+          HAWK_ENV: GitHub Actions
+        uses: stackhawk/hawkscan-action@v2.0.2
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
