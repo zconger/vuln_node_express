@@ -3,7 +3,6 @@ app:
   env: ${HAWK_ENV:Development} # (required)
   host: http://localhost:3000 # (required)
 
-
 hawk:
   failureThreshold: high
 
