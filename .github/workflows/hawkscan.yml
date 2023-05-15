@@ -33,7 +33,7 @@ jobs:
         env:
           HAWK_ENV: GitHub Actions
         continue-on-error: true
-        uses: stackhawk/hawkscan-action@v1.3.4
+        uses: stackhawk/hawkscan-action@v2
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
           codeScanningAlerts: true
