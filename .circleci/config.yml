@@ -1,0 +1,30 @@
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
+version: 2.1
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/orb-intro/
+
+jobs:
+  dast-scan:
+    description: DAST Scan
+    machine:
+      image: ubuntu-2204:2022.04.2
+    steps:
+      - checkout
+      - run:
+          name: Install HawkScan CLI to the Linux machine, build localhost, and perform DAST Scan
+          command: |
+            echo 'export HAWK_VERSION=$(curl -o- https://api.stackhawk.com/hawkscan/version)' >> "$BASH_ENV"
+            echo 'export PATH="hawk-${HAWK_VERSION}:${PATH}"' >> "$BASH_ENV"
+      - run: curl -v https://download.stackhawk.com/hawk/cli/hawk-"${HAWK_VERSION}".zip -o hawk.zip
+      - run: unzip hawk.zip
+      - run: npm install
+      - run: nohup npm run start &
+      - run: '(hawk --api-key="${HAWK_API_KEY}" scan stackhawk.yml || exit 1)'
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/configuration-reference/#workflows
+workflows:
+  dast-scan:
+    jobs:
+      - dast-scan
