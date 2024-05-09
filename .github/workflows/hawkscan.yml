@@ -12,9 +12,8 @@ jobs:
   build-and-test:
     name: Build and Scan
     runs-on: ubuntu-latest
-    env:
-      COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
-      BRANCH_NAME: ${{ github.head_ref }}
+#    env:
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -32,6 +31,8 @@ jobs:
       - name: Run HawkScan
         env:
           HAWK_ENV: GitHub Actions
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+          BRANCH_NAME: ${{ github.head_ref }}
         continue-on-error: true
         uses: stackhawk/hawkscan-action@v2
         with:
