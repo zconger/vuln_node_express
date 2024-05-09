@@ -42,6 +42,8 @@ docker run --rm --publish 3000:3000 --name nodeexpressvulny stackhawk/nodeexpres
 docker-compose up --build --detach
 ```
 
+.
+
 ## Known Vulnerabilities
 
 * SQL Injection via search box. - `item%' union all select * from user; -- ` 
